@@ -24,6 +24,24 @@ public class AccountDAO {
         return null;
     }
 
+    public Account getAccountById(int id) {
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "SELECT * FROM account WHERE account_id = ?" ;
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1, id);
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                return new Account(rs.getInt(1), rs.getString(2), rs.getString(3));
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public Account insertAccount(Account account) {
         Connection connection = ConnectionUtil.getConnection();
         try {

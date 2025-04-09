@@ -16,7 +16,7 @@ public class AccountService {
 
     public Account login(String username, String password) {
         Account account = accountDAO.getAccountByUsername(username);
-        if (account != null && account.getPassword() == password) {
+        if (account != null && account.getPassword().equals(password)) {
             return account;
         }
         return null;
